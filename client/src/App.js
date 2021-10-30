@@ -1,13 +1,13 @@
 import "./App.css";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import CreateProduct from "./pages/CreateProduct";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Switch>
-          <Route path="/about">About</Route>
-          <Route path="/users">User</Route>
+          <Route path="/create-product" component={CreateProduct}></Route>
           <Route path="/">Home</Route>
         </Switch>
       </Router>
