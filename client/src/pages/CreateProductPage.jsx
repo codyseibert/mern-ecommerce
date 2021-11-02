@@ -8,7 +8,7 @@ const DEFAULT_FORM_OBJECT = {
   description: "",
 };
 
-function CreateProductPage() {
+export const CreateProductPage = () => {
   const [form, setForm] = useState(DEFAULT_FORM_OBJECT);
 
   const updateFormValue = (key) => (e) => {
@@ -68,6 +68,4 @@ function CreateProductPage() {
       </Row>
     </Container>
   );
-}
-
-export default CreateProductPage;
+};
