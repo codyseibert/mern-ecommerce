@@ -9,12 +9,16 @@ const {
 const {
   getProductsController,
 } = require("./controllers/getProductsController");
+const { registerController } = require("./controllers/registerController");
+const { loginController } = require("./controllers/loginController");
 
 app.use(express.json());
 app.use(cors());
 
 app.post("/products", createProductController);
 app.get("/products", getProductsController);
+app.post("/register", registerController);
+app.post("/login", loginController);
 
 mongoose.connect("mongodb://localhost/shopping_cart").then(() => {
   app.listen(8080);

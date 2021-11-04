@@ -64,26 +64,25 @@ export const ProductsPage = () => {
   return (
     <>
       <ToastContainer
-        style={{ "z-index": "1" }}
+        style={{ zIndex: "1" }}
         className="p-3 position-fixed"
         position={"top-center"}
       >
         <Toast
           onClose={() => setShowToast(false)}
           show={showToast}
-          delay={2000}
+          delay={3000}
           autohide
         >
           <Toast.Header closeButton={false}>
-            <img
+            {/* <img
               src="holder.js/20x20?text=%20"
               className="rounded me-2"
               alt=""
-            />
-            <strong className="me-auto">Bootstrap</strong>
-            <small>11 mins ago</small>
+            /> */}
+            <strong className="me-auto">Successful</strong>
           </Toast.Header>
-          <Toast.Body>Hello, world! This is a toast message.</Toast.Body>
+          <Toast.Body>Product added to cart.</Toast.Body>
         </Toast>
       </ToastContainer>
       <Container>
@@ -101,13 +100,14 @@ export const ProductsPage = () => {
         </Row>
         <Row>
           {new Array(NUMBER_OF_COLUMNS).fill("").map((value, column) => (
-            <Col>
+            <Col key={column}>
               {getProductsInColumn(
                 getFilteredProducts(products),
                 NUMBER_OF_COLUMNS,
                 column
               ).map((product) => (
                 <ProductCard
+                  key={product._id}
                   product={product}
                   addProductToCart={addProductToCart}
                 />
