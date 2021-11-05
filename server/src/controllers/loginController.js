@@ -2,6 +2,8 @@ const { UserModel } = require("../models/UserModel");
 
 const jwt = require("jsonwebtoken");
 
+exports.secretString = "my-super-secret-password";
+
 exports.loginController = async (req, res) => {
   const userInDb = await UserModel.findOne({
     username: req.body.username,
@@ -13,7 +15,7 @@ exports.loginController = async (req, res) => {
   } else {
     const userObject = userInDb.toObject();
     delete userObject.password;
-    const token = jwt.sign(userObject, "my-super-secret-password");
+    const token = jwt.sign(userObject, exports.secretString);
     res.json({
       token,
       user: userObject,

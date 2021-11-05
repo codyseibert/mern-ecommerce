@@ -11,18 +11,20 @@ import {
   Toast,
 } from "react-bootstrap";
 
-import { ShoppingCartContext } from "../App";
+import { ShoppingCartContext, UserContext } from "../App";
 
-const ProductCard = ({ product, addProductToCart }) => {
+const ProductCard = ({ isLoggedIn, product, addProductToCart }) => {
   return (
     <Card key={product._id} className="mb-4">
       <Card.Img variant="top" src="./placeholder.svg" />
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>{product.description}</Card.Text>
-        <Button variant="primary" onClick={() => addProductToCart(product)}>
-          Add to Cart
-        </Button>
+        {isLoggedIn && (
+          <Button variant="primary" onClick={() => addProductToCart(product)}>
+            Add to Cart
+          </Button>
+        )}
       </Card.Body>
     </Card>
   );
@@ -35,6 +37,7 @@ export const ProductsPage = () => {
   const [search, setSearch] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [cart, setCart] = useContext(ShoppingCartContext);
+  const [user] = useContext(UserContext);
 
   const addProductToCart = (product) => {
     setCart([...cart, { ...product }]);
@@ -75,11 +78,6 @@ export const ProductsPage = () => {
           autohide
         >
           <Toast.Header closeButton={false}>
-            {/* <img
-              src="holder.js/20x20?text=%20"
-              className="rounded me-2"
-              alt=""
-            /> */}
             <strong className="me-auto">Successful</strong>
           </Toast.Header>
           <Toast.Body>Product added to cart.</Toast.Body>
@@ -107,6 +105,7 @@ export const ProductsPage = () => {
                 column
               ).map((product) => (
                 <ProductCard
+                  isLoggedIn={!!user.token}
                   key={product._id}
                   product={product}
                   addProductToCart={addProductToCart}
