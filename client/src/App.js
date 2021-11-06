@@ -1,13 +1,6 @@
 import "./App.css";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
-import { CreateProductPage } from "./pages/CreateProductPage";
-import { ProductsPage } from "./pages/ProductsPage";
-import { ShoppingCartPage } from "./pages/ShoppingCartPage";
 import React, { useEffect, useState } from "react";
-import { Header } from "./components/Header";
-import { RegisterPage } from "./pages/RegisterPage";
-import { LoginPage } from "./pages/LoginPage";
-import { LogoutPage } from "./pages/LogoutPage";
+import { AppRouter } from "./AppRouter";
 
 export const ShoppingCartContext = React.createContext();
 export const UserContext = React.createContext();
@@ -28,19 +21,7 @@ function App() {
     <div className="App">
       <UserContext.Provider value={userState}>
         <ShoppingCartContext.Provider value={cartState}>
-          <Router>
-            <Header />
-            <Switch>
-              {userState[0].token && userState[0].user.role === "admin" && (
-                <Route path="/create-product" component={CreateProductPage} />
-              )}
-              <Route path="/cart" component={ShoppingCartPage} />
-              <Route path="/register" component={RegisterPage} />
-              <Route path="/login" component={LoginPage} />
-              <Route path="/logout" component={LogoutPage} />
-              <Route path="/" component={ProductsPage} />
-            </Switch>
-          </Router>
+          <AppRouter />
         </ShoppingCartContext.Provider>
       </UserContext.Provider>
     </div>

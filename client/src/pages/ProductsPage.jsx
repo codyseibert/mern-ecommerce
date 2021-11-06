@@ -10,10 +10,13 @@ import {
   ToastContainer,
   Toast,
 } from "react-bootstrap";
+import { Link } from "react-router-dom";
+import { useIsAdmin } from "../hooks/useIsAdmin";
+import { useIsLoggedIn } from "../hooks/useIsLoggedIn";
 
 import { ShoppingCartContext, UserContext } from "../App";
 
-const ProductCard = ({ isLoggedIn, product, addProductToCart }) => {
+const ProductCard = ({ isAdmin, isLoggedIn, product, addProductToCart }) => {
   return (
     <Card key={product._id} className="mb-4">
       <Card.Img variant="top" src="./placeholder.svg" />
@@ -25,6 +28,7 @@ const ProductCard = ({ isLoggedIn, product, addProductToCart }) => {
             Add to Cart
           </Button>
         )}
+        {isAdmin && <Link to={`/products/${product._id}/edit`}>Edit</Link>}
       </Card.Body>
     </Card>
   );
@@ -37,7 +41,8 @@ export const ProductsPage = () => {
   const [search, setSearch] = useState("");
   const [showToast, setShowToast] = useState(false);
   const [cart, setCart] = useContext(ShoppingCartContext);
-  const [user] = useContext(UserContext);
+  const isAdmin = useIsAdmin();
+  const isLoggedIn = useIsLoggedIn();
 
   const addProductToCart = (product) => {
     setCart([...cart, { ...product }]);
@@ -105,7 +110,8 @@ export const ProductsPage = () => {
                 column
               ).map((product) => (
                 <ProductCard
-                  isLoggedIn={!!user.token}
+                  isLoggedIn={isLoggedIn}
+                  isAdmin={isAdmin}
                   key={product._id}
                   product={product}
                   addProductToCart={addProductToCart}
