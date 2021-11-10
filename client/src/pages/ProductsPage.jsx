@@ -19,11 +19,11 @@ import { ShoppingCartContext, UserContext } from "../App";
 const ProductCard = ({ isAdmin, isLoggedIn, product, addProductToCart }) => {
   return (
     <Card key={product._id} className="mb-4">
-      <Card.Img variant="top" src="./placeholder.svg" />
+      <Card.Img variant="top" src={`http://localhost:8080/${product.image}`} />
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>{product.description}</Card.Text>
-        {isLoggedIn && (
+        {isLoggedIn && !isAdmin && (
           <Button variant="primary" onClick={() => addProductToCart(product)}>
             Add to Cart
           </Button>

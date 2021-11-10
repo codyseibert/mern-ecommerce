@@ -10,7 +10,10 @@ exports.createProductController = async (req, res) => {
     if (user.role !== "admin") {
       return res.status(403).send("authorization error");
     }
-    const instance = new ProductModel(req.body);
+    const instance = new ProductModel({
+      ...req.body,
+      image: req.file.filename,
+    });
     await instance.save();
     res.json(instance);
   } catch (err) {
