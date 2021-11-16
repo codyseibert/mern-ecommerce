@@ -15,7 +15,7 @@ export const Header = () => {
     <Navbar bg="light" expand="lg" className="mb-4">
       <Container>
         <Navbar.Brand>
-          <Link to="/">React-Bootstrap</Link>
+          <Link to="/">MERN Shopping Cart</Link>
         </Navbar.Brand>
         {isAdmin && <Link to="/create-product">Create Product</Link>}
         {!isLoggedIn && <Link to="/login">Login</Link>}

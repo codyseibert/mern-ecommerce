@@ -2,6 +2,8 @@ import React from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { Header } from "./components/Header";
 import { useIsAdmin } from "./hooks/useIsAdmin";
+import { CheckoutPage } from "./pages/CheckoutPage";
+import { ConfirmationPage } from "./pages/ConfirmationPage";
 import { CreateProductPage } from "./pages/CreateProductPage";
 import { EditProduct } from "./pages/EditProduct";
 import { LoginPage } from "./pages/LoginPage";
@@ -22,6 +24,8 @@ export const AppRouter = () => {
         )}
         <Route path="/products/:productId/edit" component={EditProduct} />
         <Route path="/cart" component={ShoppingCartPage} />
+        <Route path="/checkout" component={CheckoutPage} />
+        <Route path="/confirmation" component={ConfirmationPage} />
         <Route path="/register" component={RegisterPage} />
         <Route path="/login" component={LoginPage} />
         <Route path="/logout" component={LogoutPage} />

@@ -24,6 +24,7 @@ const {
   deleteProductController,
 } = require("./controllers/deleteProductController");
 const { isAdmin } = require("./middlewares/isAdmin");
+const { checkoutController } = require("./controllers/checkoutController");
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
@@ -53,6 +54,7 @@ app.patch(
 );
 app.delete("/products/:productId", isAdmin, deleteProductController);
 app.post("/register", registerController);
+app.post("/checkout", checkoutController);
 app.post("/login", loginController);
 
 mongoose.connect(process.env.MONGO_DB_URL).then(() => {

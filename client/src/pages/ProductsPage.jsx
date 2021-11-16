@@ -23,6 +23,7 @@ const ProductCard = ({ isAdmin, isLoggedIn, product, addProductToCart }) => {
       <Card.Body>
         <Card.Title>{product.name}</Card.Title>
         <Card.Text>{product.description}</Card.Text>
+        <Card.Text>${product.cost}</Card.Text>
         {isLoggedIn && !isAdmin && (
           <Button variant="primary" onClick={() => addProductToCart(product)}>
             Add to Cart
