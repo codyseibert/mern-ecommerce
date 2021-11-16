@@ -10,41 +10,41 @@ const DEFAULT_FORM_OBJECT = {
   description: "",
 };
 
+export const updateFormFileValue = (key, form, setForm) => (e) => {
+  setForm({
+    ...form,
+    [key]: e.target.files[0],
+  });
+};
+
+export const updateFormValue = (key, form, setForm) => (e) => {
+  setForm({
+    ...form,
+    [key]: e.currentTarget.value,
+  });
+};
+
 export const CreateProductPage = () => {
   const [form, setForm] = useState(DEFAULT_FORM_OBJECT);
   const [user] = useContext(UserContext);
   const history = useHistory();
 
-  const updateFormValue = (key) => (e) => {
-    setForm({
-      ...form,
-      [key]: e.currentTarget.value,
-    });
-  };
-
-  const updateFormFileValue = (key) => (e) => {
-    setForm({
-      ...form,
-      [key]: e.target.files[0],
-    });
-  };
-
   const createProduct = async (e) => {
     e.preventDefault();
 
     const formData = new FormData();
-    formData.append('name', form.name)
-    formData.append('cost', form.cost)
-    formData.append('description', form.description)
-    formData.append('file', form.file)
+    formData.append("name", form.name);
+    formData.append("cost", form.cost);
+    formData.append("description", form.description);
+    formData.append("file", form.file);
     await axios.post("http://localhost:8080/products", formData, {
       headers: {
-          'content-type': 'multipart/form-data',
-          Authorization: `Bearer ${user.token}`,
-      }
+        "content-type": "multipart/form-data",
+        Authorization: `Bearer ${user.token}`,
+      },
     });
     setForm(DEFAULT_FORM_OBJECT);
-    history.push('/');
+    history.push("/");
   };
 
   return (
@@ -57,7 +57,7 @@ export const CreateProductPage = () => {
             <Form.Group className="mb-3">
               <Form.Label>Name</Form.Label>
               <Form.Control
-                onChange={updateFormValue("name")}
+                onChange={updateFormValue("name", form, setForm)}
                 value={form.name}
                 type="name"
               />
@@ -66,7 +66,7 @@ export const CreateProductPage = () => {
             <Form.Group className="mb-3">
               <Form.Label>Cost</Form.Label>
               <Form.Control
-                onChange={updateFormValue("cost")}
+                onChange={updateFormValue("cost", form, setForm)}
                 value={form.cost}
                 type="number"
               />
@@ -75,7 +75,7 @@ export const CreateProductPage = () => {
             <Form.Group className="mb-3">
               <Form.Label>Description</Form.Label>
               <Form.Control
-                onChange={updateFormValue("description")}
+                onChange={updateFormValue("description", form, setForm)}
                 value={form.description}
                 as="textarea"
                 rows={3}
@@ -85,7 +85,7 @@ export const CreateProductPage = () => {
             <Form.Group className="mb-3">
               <Form.Label>Image</Form.Label>
               <Form.Control
-                onChange={updateFormFileValue("file")}
+                onChange={updateFormFileValue("file", form, setForm)}
                 type="file"
               />
             </Form.Group>
